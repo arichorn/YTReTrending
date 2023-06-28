@@ -15,11 +15,11 @@ static void replaceTab(YTIGuideResponse *response) {
         if (shortIndex != NSNotFound) {
             [items removeObjectAtIndex:shortIndex];
             NSUInteger exploreIndex = [items indexOfObjectPassingTest:^BOOL(YTIPivotBarSupportedRenderers *renderers, NSUInteger idx, BOOL *stop) {
-                return [[[renderers pivotBarItemRenderer] pivotIdentifier] isEqualToString:[%c(YTIBrowseRequest) browseIDForExploreTab]];
+                return [[[renderers pivotBarItemRenderer] pivotIdentifier] isEqualToString:[%c(YTIBrowseRequest) browseIDForTrendingTab]];
             }];
-            if (exploreIndex == NSNotFound) {
-                YTIPivotBarSupportedRenderers *exploreTab = [%c(YTIPivotBarRenderer) pivotSupportedRenderersWithBrowseId:[%c(YTIBrowseRequest) browseIDForExploreTab] title:@"Explore" iconType:292];
-                [items insertObject:exploreTab atIndex:1];
+            if (trendingIndex == NSNotFound) {
+                YTIPivotBarSupportedRenderers *trendingTab = [%c(YTIPivotBarRenderer) pivotSupportedRenderersWithBrowseId:[%c(YTIBrowseRequest) browseIDForTrendingTab] title:@"Trending" iconType:36];
+                [items insertObject:trendingTab atIndex:1];
             }
         }
     }

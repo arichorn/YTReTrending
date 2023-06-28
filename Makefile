@@ -5,7 +5,7 @@ PACKAGE_VERSION = 1.0.2
 
 include $(THEOS)/makefiles/common.mk
 
-TWEAK_NAME = YTReExplore
+TWEAK_NAME = YTReTrending
 
 YTReExplore_FILES = Tweak.x
 YTReExplore_CFLAGS = -fobjc-arc

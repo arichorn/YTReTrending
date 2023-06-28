@@ -1,11 +1,9 @@
-Package: com.ps.ytreexplore
-Name: YTReExplore
-Version: 1.0.0
+Package: com.arichorn.ytretrending
+Name: YTReTrending
+Version: 1.0.2
 Architecture: iphoneos-arm
-Description: Remove Shorts tab and replace with Explore tab in YouTube app.
-Maintainer: PoomSmart
-Author: PoomSmart
+Description: Remove Shorts tab and replace with Trending tab in YouTube app.
+Maintainer: arichorn
+Author: arichorn
 Section: Tweaks
 Depends: mobilesubstrate (>= 0.9.5000), firmware (>= 11.0)
-Depiction: https://poomsmart.github.io/repo/depictions/ytreexplore.html
-SileoDepiction: https://poomsmart.github.io/repo/sileodepictions/ytreexplore.json

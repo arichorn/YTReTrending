@@ -5,17 +5,30 @@
 #import "../YouTubeHeader/YTIBrowseRequest.h"
 
 static void replaceTab(YTIGuideResponse *response) {
-    NSMutableArray <YTIGuideResponseSupportedRenderers *> *renderers = [response itemsArray];
+    NSMutableArray<YTIGuideResponseSupportedRenderers *> *renderers = [response itemsArray];
     for (YTIGuideResponseSupportedRenderers *guideRenderers in renderers) {
         YTIPivotBarRenderer *pivotBarRenderer = [guideRenderers pivotBarRenderer];
-        NSMutableArray <YTIPivotBarSupportedRenderers *> *items = [pivotBarRenderer itemsArray];
+        NSMutableArray<YTIPivotBarSupportedRenderers *> *items = [pivotBarRenderer itemsArray];
+
+        // Find the index of the "Create" tab
         NSUInteger createIndex = [items indexOfObjectPassingTest:^BOOL(YTIPivotBarSupportedRenderers *renderers, NSUInteger idx, BOOL *stop) {
             return [[[renderers pivotBarItemRenderer] pivotIdentifier] isEqualToString:@"FEuploads"];
-        }];    
-        if (createIndex != NSNotFound) {
+        }];
+
+        // Find the index of the "Subscriptions" tab
+        NSUInteger subscriptionsIndex = [items indexOfObjectPassingTest:^BOOL(YTIPivotBarSupportedRenderers *renderers, NSUInteger idx, BOOL *stop) {
+            return [[[renderers pivotBarItemRenderer] pivotIdentifier] isEqualToString:@"FEsubscriptions"];
+        }];
+
+        if (createIndex != NSNotFound && subscriptionsIndex != NSNotFound) {
+            // Remove the "Create" tab
             [items removeObjectAtIndex:createIndex];
-            YTIPivotBarSupportedRenderers *notificationsTab = [%c(YTIPivotBarRenderer) pivotSupportedRenderersWithBrowseId:@"FEnotifications" title:@"Notifications" iconType:292];
-            [items insertObject:notificationsTab atIndex:createIndex];
+
+            // Create the "Notifications" tab
+            YTIPivotBarSupportedRenderers *notificationsTab = [%c(YTIPivotBarRenderer) pivotSupportedRenderersWithBrowseId:@"FEnotifications" title:@"Notifications" iconType:0];
+
+            // Insert the "Notifications" tab at the index of the "Subscriptions" tab
+            [items insertObject:notificationsTab atIndex:subscriptionsIndex + 1];
         }
     }
 }

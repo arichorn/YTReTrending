@@ -9,18 +9,13 @@ static void replaceTab(YTIGuideResponse *response) {
     for (YTIGuideResponseSupportedRenderers *guideRenderers in renderers) {
         YTIPivotBarRenderer *pivotBarRenderer = [guideRenderers pivotBarRenderer];
         NSMutableArray <YTIPivotBarSupportedRenderers *> *items = [pivotBarRenderer itemsArray];
-        NSUInteger shortIndex = [items indexOfObjectPassingTest:^BOOL(YTIPivotBarSupportedRenderers *renderers, NSUInteger idx, BOOL *stop) {
-            return [[[renderers pivotBarItemRenderer] pivotIdentifier] isEqualToString:@"FEshorts"];
-        }];
-        if (shortIndex != NSNotFound) {
-            [items removeObjectAtIndex:shortIndex];
-            NSUInteger exploreIndex = [items indexOfObjectPassingTest:^BOOL(YTIPivotBarSupportedRenderers *renderers, NSUInteger idx, BOOL *stop) {
-                return [[[renderers pivotBarItemRenderer] pivotIdentifier] isEqualToString:[%c(YTIBrowseRequest) browseIDForTrendingTab]];
-            }];
-            if (trendingIndex == NSNotFound) {
-                YTIPivotBarSupportedRenderers *trendingTab = [%c(YTIPivotBarRenderer) pivotSupportedRenderersWithBrowseId:[%c(YTIBrowseRequest) browseIDForTrendingTab] title:@"Trending" iconType:36];
-                [items insertObject:trendingTab atIndex:1];
-            }
+        NSUInteger createIndex = [items indexOfObjectPassingTest:^BOOL(YTIPivotBarSupportedRenderers *renderers, NSUInteger idx, BOOL *stop) {
+            return [[[renderers pivotBarItemRenderer] pivotIdentifier] isEqualToString:@"FEuploads"];
+        }];    
+        if (createIndex != NSNotFound) {
+            [items removeObjectAtIndex:createIndex];
+            YTIPivotBarSupportedRenderers *notificationsTab = [%c(YTIPivotBarRenderer) pivotSupportedRenderersWithBrowseId:@"FEnotifications" title:@"Notifications" iconType:292];
+            [items insertObject:notificationsTab atIndex:createIndex];
         }
     }
 }

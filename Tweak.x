@@ -15,7 +15,6 @@ static void replaceNotificationsTab(YTIGuideResponse *response) {
         NSUInteger subscriptionsIndex = [items indexOfObjectPassingTest:^BOOL(YTIPivotBarSupportedRenderers *renderers, NSUInteger idx, BOOL *stop) {
             return [[[renderers pivotBarItemRenderer] pivotIdentifier] isEqualToString:@"FEsubscriptions"];
         }];
-        
         if (createIndex != NSNotFound && subscriptionsIndex != NSNotFound) {
             [items removeObjectAtIndex:createIndex];
             YTIPivotBarSupportedRenderers *notificationsTab = [%c(YTIPivotBarRenderer) pivotSupportedRenderersWithBrowseId:@"FEnotifications" title:@"Notifications" iconType:0];
@@ -23,6 +22,10 @@ static void replaceNotificationsTab(YTIGuideResponse *response) {
             YTIPivotBarSupportedRenderers *subscriptionsTab = [items objectAtIndex:subscriptionsIndex];
             [items removeObjectAtIndex:subscriptionsIndex];
             [items insertObject:subscriptionsTab atIndex:createIndex];
+        } else {
+            // Fallback method to add the "Notifications" tab at the end
+            YTIPivotBarSupportedRenderers *notificationsTab = [%c(YTIPivotBarRenderer) pivotSupportedRenderersWithBrowseId:@"FEnotifications" title:@"Notifications" iconType:0];
+            [items addObject:notificationsTab];
         }
     }
 }

@@ -1,8 +1,8 @@
-Package: com.arichorn.ytretrending
-Name: YTReTrending
+Package: com.arichorn.ytrenotifications
+Name: YTReNotifications
 Version: 1.0.2
 Architecture: iphoneos-arm
-Description: Remove Shorts tab and replace with Trending tab in YouTube app.
+Description: Remove Create tab and replaces it with Notifications tab in the YouTube app.
 Maintainer: arichorn
 Author: arichorn
 Section: Tweaks

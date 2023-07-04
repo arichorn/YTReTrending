@@ -5,16 +5,16 @@
 #import "../YouTubeHeader/YTIBrowseRequest.h"
 
 static void replaceTab(YTIGuideResponse *response) {
-    NSMutableArray <YTIGuideResponseSupportedRenderers *> *renderers = [response itemsArray];
+    NSMutableArray<YTIGuideResponseSupportedRenderers *> *renderers = [response itemsArray];
     for (YTIGuideResponseSupportedRenderers *guideRenderers in renderers) {
         YTIPivotBarRenderer *pivotBarRenderer = [guideRenderers pivotBarRenderer];
-        NSMutableArray <YTIPivotBarSupportedRenderers *> *items = [pivotBarRenderer itemsArray];
+        NSMutableArray<YTIPivotBarSupportedRenderers *> *items = [pivotBarRenderer itemsArray];
         NSUInteger shortIndex = [items indexOfObjectPassingTest:^BOOL(YTIPivotBarSupportedRenderers *renderers, NSUInteger idx, BOOL *stop) {
             return [[[renderers pivotBarItemRenderer] pivotIdentifier] isEqualToString:@"FEshorts"];
         }];
         if (shortIndex != NSNotFound) {
             [items removeObjectAtIndex:shortIndex];
-            NSUInteger exploreIndex = [items indexOfObjectPassingTest:^BOOL(YTIPivotBarSupportedRenderers *renderers, NSUInteger idx, BOOL *stop) {
+            NSUInteger trendingIndex = [items indexOfObjectPassingTest:^BOOL(YTIPivotBarSupportedRenderers *renderers, NSUInteger idx, BOOL *stop) {
                 return [[[renderers pivotBarItemRenderer] pivotIdentifier] isEqualToString:[%c(YTIBrowseRequest) browseIDForTrendingTab]];
             }];
             if (trendingIndex == NSNotFound) {
